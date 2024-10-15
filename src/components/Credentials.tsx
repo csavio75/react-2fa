@@ -1,4 +1,4 @@
-import { getOTP, verifyOTP } from "@/api/otp";
+import { getOTP, removeQrcode, verifyOTP } from "@/api/otp";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -24,6 +24,7 @@ export default function Credentials({
         if (result === true) {
           close();
           setInvalid(false);
+          removeQrcode(username);
         } else {
           setInvalid(true);
         }

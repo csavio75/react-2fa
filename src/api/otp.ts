@@ -28,11 +28,24 @@ export const verifyOTP = (code: string) => {
     axios
       .post(url, { code: code })
       .then((response) => {
-        console.log(response.data);
         resolve(response.data);
       })
       .catch((err) => {
         console.log(err);
+        reject(err);
+      });
+  });
+};
+
+export const removeQrcode = (username: string) => {
+  const url = `${BASE_API}/qrcode/remove/${username}`;
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(url)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
         reject(err);
       });
   });
