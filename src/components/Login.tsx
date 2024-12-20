@@ -33,7 +33,7 @@ export default function Login() {
           <>
             <Credentials
               username={username}
-              requireQRCode={false}
+              requireQRCode={true}
               close={() => setSuccess(true)}
             />
           </>

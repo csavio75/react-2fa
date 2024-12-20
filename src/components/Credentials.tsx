@@ -1,6 +1,6 @@
 import { getOTP, removeQrcode, verifyOTP } from "@/api/otp";
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import OTPQrcode from "./qrcode";
 
 type credentialsProps = {
   username: string;
@@ -13,7 +13,7 @@ export default function Credentials({
   requireQRCode,
   close,
 }: credentialsProps) {
-  const [image, setImage] = useState("");
+  const [uri, setUri] = useState("");
   const [code, setCode] = useState("");
   const [invalid, setInvalid] = useState(false);
 
@@ -35,9 +35,7 @@ export default function Credentials({
   useEffect(() => {
     getOTP(username)
       .then((res) => {
-        const bas64_image = res.base64_image;
-        const imgSrc = "data:image/png;base64," + bas64_image;
-        setImage(imgSrc);
+        setUri(res.uri);
       })
       .catch((err) => {
         console.log(err);
@@ -46,13 +44,13 @@ export default function Credentials({
 
   return (
     <>
-      {requireQRCode && (
+      {requireQRCode && uri && (
         <>
           <p>
             Veuillez scanner ce qrcode avec une applicaction authenticator sur
             votre mobile
           </p>
-          <Image src={image} alt="qrcode" width={200} height={200} />
+          <OTPQrcode uri={uri} />
         </>
       )}
       <br />

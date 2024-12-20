@@ -1,7 +1,7 @@
 import axios from "axios";
 
 type ResponseData = {
-  base64_image: string;
+  uri: string;
 };
 
 type ValidOTP = {
